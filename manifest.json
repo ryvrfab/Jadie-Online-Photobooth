@@ -1,0 +1,17 @@
+{
+  "name": "jadie — Photobooth for Long Distance Couples",
+  "short_name": "jadie",
+  "description": "Take synced photobooth photos with your partner from anywhere in the world.",
+  "start_url": "/?source=pwa",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#FFF9F4",
+  "theme_color": "#FF6F9C",
+  "categories": ["photo", "lifestyle", "social"],
+  "icons": [
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

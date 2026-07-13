@@ -1,0 +1,41 @@
+# Netlify configuration for jadie
+# No build step needed — this is a static site (single index.html + assets).
+
+[build]
+  publish = "."
+
+# ---------- Caching ----------
+[[headers]]
+  for = "/icons/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/manifest.json"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
+
+[[headers]]
+  for = "/sw.js"
+  [headers.values]
+    Cache-Control = "no-cache"
+
+# ---------- Security headers ----------
+# Permissions-Policy explicitly ALLOWS camera/mic for this origin — do not remove
+# "self" from camera/microphone or the photobooth will stop working.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "SAMEORIGIN"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(self), microphone=(self), geolocation=()"
+    # Content-Security-Policy is intentionally broad enough to allow Firebase,
+    # Google Fonts, Google Analytics/AdSense, and the CDN libraries this app uses.
+    # Test thoroughly after deploy (browser console will show any blocked domain)
+    # and tighten further once you know exactly which third parties you're using.
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdnjs.cloudflare.com https://www.gstatic.com https://www.googletagmanager.com https://www.google-analytics.com https://pagead2.googlesyndication.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; media-src 'self' blob:; connect-src 'self' blob: https://*.firebaseio.com wss://*.firebaseio.com https://*.googleapis.com https://www.google-analytics.com https://region1.google-analytics.com; frame-src https://www.facebook.com https://googleads.g.doubleclick.net; worker-src 'self'"
+
+# Redirect the bare www/non-www or old domains here once you connect a custom
+# domain in Site settings → Domain management — Netlify handles this via the UI,
+# no [[redirects]] needed for a single-page static site like this one.
